@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Jangko - Penjelasan Algoritma Deflate Secara Mendalam</title>
+    <link rel="stylesheet" href="/stylesheet.css">
+
+    <!-- you don't need to keep this, but it's cool for stats! -->
+    <meta name="generator" content="Nanoc 4.3.3">
+  </head>
+  <body>
+    <div id="main">
+      
+<h1 id="struktur-dari-data-yang-telah-dipadatkan-oleh-deflate">Struktur dari data yang telah dipadatkan oleh <em>deflate</em></h1>
+
+<p><em>Deflate</em> merupakan algoritma untuk memadatkan data yang sangat populer, 
+algoritma ini digunakan dalam banyak <em>tools</em> dan <em>library</em> seperti 
+gzip, zip archiver, konten pdf, bahkan format gambar png yang terkenal juga memakai deflate
+sebagai algoritma untuk memadatkan data.</p>
+
+<h2 id="penjelasan-atas-beberapa-istilah-yang-digunakan-dalam-artikel-ini">Penjelasan atas beberapa istilah yang digunakan dalam artikel ini</h2>
+
+<ol>
+  <li>
+    <p>Byte
+  Yang dimaksud dengan byte di artikel ini adalah satu unit data yang terdiri dari delapan bit.
+  Di dalam satu byte bit-bit yang ada diberi nomor dari kanan ke kiri sebagai berikut: 76543210</p>
+  </li>
+  <li>
+    <p>Bilangan yang terdiri lebih dari satu byte
+  Bila ada bilangan yang terdiri lebih dari satu byte, maka byte pertama yang datang nilainya paling kecil.
+  Contoh: untuk bilangan yang menggunakan dua byte x08 x02 (heksa) maka x08 nilainya adalah 8 sedangkan x02 nilainya 2 x 256 = 512. 
+  Maka angka x08 x02 akan bernilai 8 + 512 = 520 dalam basis desimal.</p>
+  </li>
+  <li>
+    <p>Menggabungkan bit-bit ke dalam satu byte
+  Umumnya data akan disimpan sesuai urutan bitnya yaitu dari kiri ke kanan, akan tetapi untuk <strong>Kode Huffman</strong>, 
+  data disimpan dengan posisi terbalik yaitu mulai dari bit 7 menuju bit 0, atau dari kiri ke kanan.</p>
+  </li>
+</ol>
+
+<h3 id="struktur-umum">Struktur umum</h3>
+
+<p>Data yang telah dipadatkan menggunakan algoritma <em>deflate</em> berupa serangkaian bytes yang panjangnya tak tentu.
+Data tersebut kemudian dibagi ke dalam blok-blok yang panjangnya juga tak tentu. 
+Kecuali untuk blok yang tidak dipadatkan akan memiliki panjang maksimum 65535 byte.
+Tentu saja data tersebut minimum boleh terdiri dari satu blok saja.
+<img src="data-stream.svg" alt="data-stream" /></p>
+
+<h3 id="jenis-jenis-blok">Jenis-jenis blok</h3>
+<ul>
+  <li>Blok yang tidak dikompress
+Sesuai namanya, blok ini tidak diapa-apakan, benar-benar data mentah. Panjangnya dibatasi maksimum 65535 byte.
+Blok ini terdiri dari header dan body. Body dimulai pada byte berikutnya.
+<img src="uncompressed-block.svg" alt="uncompresses-block" /></li>
+  <li>Blok yang dikompress menggunakan <em>Fixed Huffman Tree</em>
+Blok ini terdiri dari header dan body. Body dimulai pada bit berikutnya.
+<img src="fixed-block.svg" alt="fixed-block" /></li>
+  <li>Blok yang dikompress menggunakan <em>Dynamic Huffman Tree</em>
+Blok ini terdiri dari header, Huffman Tree A, Huffman Tree B, body. Huffman Tree A, B dan body dimulai pada bit berikutnya.
+<img src="dynamic-block.svg" alt="dynamic-block" /></li>
+</ul>
+
+    </div>
+    <div id="sidebar">
+      <h2>Documentation</h2>
+      <ul>
+        <li><a href="http://nanoc.ws/about/">About</a></li>
+        <li><a href="http://nanoc.ws/doc/">Documentation</a></li>
+        <li><a href="http://nanoc.ws/doc/tutorial/">Tutorial</a></li>
+      </ul>
+      <h2>Community</h2>
+      <ul>
+        <li><a href="http://groups.google.com/group/nanoc/">Discussion group</a></li>
+        <li><a href="irc://chat.freenode.net/#nanoc">IRC channel</a></li>
+        <li><a href="http://nanoc.ws/contributing/">Contributing</a></li>
+      </ul>
+    </div>
+  </body>
+</html>
