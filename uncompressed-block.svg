@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.08"
-     inkscape:cx="117.41847"
-     inkscape:cy="-31.71727"
+     inkscape:zoom="3.31"
+     inkscape:cx="201.4366"
+     inkscape:cy="0.77646935"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -48,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -79,27 +79,42 @@
            id="tspan3430"
            sodipodi:role="line">Header</tspan></text>
     </g>
-    <g
-       id="g3436"
-       transform="translate(0,-0.34881592)">
-      <rect
-         style="fill:#ffd5d5;stroke:#280b0b;stroke-width:0.47992936"
-         y="229.62764"
-         x="190.51921"
-         height="31.781416"
-         width="287.26221"
-         id="rect3411-9" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3432"
-         y="249.70781"
-         x="314.75677"
-         style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
-           y="249.70781"
-           x="314.75677"
-           id="tspan3434"
-           sodipodi:role="line">Body</tspan></text>
-    </g>
+    <rect
+       id="rect3411-9"
+       width="179.02933"
+       height="31.881868"
+       x="298.80231"
+       y="229.22859"
+       style="fill:#ffd5d5;stroke:#280b0b;stroke-width:0.37947696" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="368.99933"
+       y="249.35899"
+       id="text3432"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3434"
+         x="368.99933"
+         y="249.35899">Body</tspan></text>
+    <rect
+       id="rect3411-90"
+       width="108.02074"
+       height="31.803114"
+       x="190.67052"
+       y="229.3558"
+       style="fill:#ffd5d5;stroke:#280b0b;stroke-width:0.4582327" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:14.32187939px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="213.79718"
+       y="239.34224"
+       id="text3428-7"
+       sodipodi:linespacing="125%"
+       transform="scale(0.95414057,1.0480636)"><tspan
+         sodipodi:role="line"
+         id="tspan3430-2"
+         x="213.79718"
+         y="239.34224">Sub Header</tspan></text>
   </g>
 </svg>

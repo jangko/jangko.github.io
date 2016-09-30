@@ -99,3 +99,7 @@ a:hover {
 
   line-height: 20px;
 }
+
+.CodeRay pre {
+  font-family: "Bitstream Vera Sans Mono", Consolas, monospace;
+}

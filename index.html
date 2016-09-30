@@ -11,65 +11,165 @@
   <body>
     <div id="main">
       
-<h1 id="struktur-dari-data-yang-telah-dipadatkan-oleh-deflate">Struktur dari data yang telah dipadatkan oleh <em>deflate</em></h1>
+<h1 id="struktur-dari-data-yang-telah-dipadatkan-oleh-deflate">Struktur dari data yang telah dipadatkan oleh <em>deflate</em>
+</h1>
 
-<p><em>Deflate</em> merupakan algoritma untuk memadatkan data yang sangat populer, 
-algoritma ini digunakan dalam banyak <em>tools</em> dan <em>library</em> seperti 
-gzip, zip archiver, konten pdf, bahkan format gambar png yang terkenal juga memakai deflate
+<p><em>Deflate</em> merupakan algoritma untuk memadatkan data yang sangat populer,
+algoritma ini digunakan dalam banyak <em>tools</em> dan <em>library</em> seperti
+gzip, zip archiver, konten pdf, bahkan format gambar png yang terkenal juga memakai <em>deflate</em>
 sebagai algoritma untuk memadatkan data.</p>
+
+<p>Terkadang kita ingin menulis sendiri algoritma ini dalam bahasa pemrograman yang kita sukai,
+namun untuk melakukannya terlebih dahulu harus memahami cara bekerjanya algoritma ini.
+Membaca penjelasan dari artikel <a href="https://www.w3.org/Graphics/PNG/RFC-1951">RFC 1951</a> memang salah satu cara untuk memahami algoritma ini,
+tetapi menurut saya, penjelasannya masih cukup membingungkan untuk orang yang pertama kali berkenalan dengan algoritma ini.</p>
+
+<p>Oleh karena itu, saya mencoba menyusun artikel ini dan beberapa artikel tambahan untuk memudahkan mengenal
+algoritma <em>deflate</em>. Artikelnya disusun dari hal-hal yang paling umum sampai hal-hal yang mendetail,
+tidak seperti RFC 1951 yang menyusun hal umum bercampur yang detail sehingga sulit dipahami.</p>
+
+<p>Diharapkan setelah membaca artikel ini beserta artikel pendukungnya, pembaca dapat mengimplementasikan sendiri
+algoritma ini dalam bahasa pemrograman yang disukai.</p>
 
 <h2 id="penjelasan-atas-beberapa-istilah-yang-digunakan-dalam-artikel-ini">Penjelasan atas beberapa istilah yang digunakan dalam artikel ini</h2>
 
-<ol>
+<ul>
   <li>
-    <p>Byte
-  Yang dimaksud dengan byte di artikel ini adalah satu unit data yang terdiri dari delapan bit.
-  Di dalam satu byte bit-bit yang ada diberi nomor dari kanan ke kiri sebagai berikut: 76543210</p>
+    <p>Byte</p>
+
+    <p>Yang dimaksud dengan byte di artikel ini adalah satu unit data yang terdiri dari delapan bit.
+Di dalam satu byte, bit-bit yang ada diberi nomor dari kanan ke kiri sebagai berikut: 76543210</p>
   </li>
   <li>
-    <p>Bilangan yang terdiri lebih dari satu byte
-  Bila ada bilangan yang terdiri lebih dari satu byte, maka byte pertama yang datang nilainya paling kecil.
-  Contoh: untuk bilangan yang menggunakan dua byte x08 x02 (heksa) maka x08 nilainya adalah 8 sedangkan x02 nilainya 2 x 256 = 512. 
-  Maka angka x08 x02 akan bernilai 8 + 512 = 520 dalam basis desimal.</p>
+    <p>Bilangan yang terdiri lebih dari satu byte</p>
+
+    <p>Bila ada bilangan yang terdiri lebih dari satu byte, maka byte pertama yang datang nilainya paling kecil.
+Contoh: untuk bilangan yang menggunakan dua byte x08 x02 (heksa) maka x08 nilainya adalah 8 sedangkan x02 nilainya 2 x 256 = 512.
+Maka angka x08 x02 akan bernilai 8 + 512 = 520 dalam basis desimal.</p>
   </li>
   <li>
-    <p>Menggabungkan bit-bit ke dalam satu byte
-  Umumnya data akan disimpan sesuai urutan bitnya yaitu dari kiri ke kanan, akan tetapi untuk <strong>Kode Huffman</strong>, 
-  data disimpan dengan posisi terbalik yaitu mulai dari bit 7 menuju bit 0, atau dari kiri ke kanan.</p>
+    <p>Menggabungkan bit-bit ke dalam satu byte</p>
+
+    <p>Umumnya data akan disimpan sesuai urutan bitnya yaitu dari kiri ke kanan, akan tetapi untuk <strong>Kode Huffman</strong>,
+data disimpan dengan posisi terbalik yaitu mulai dari bit 7 menuju bit 0, atau dari kiri ke kanan.</p>
   </li>
-</ol>
+</ul>
 
 <h3 id="struktur-umum">Struktur umum</h3>
 
-<p>Data yang telah dipadatkan menggunakan algoritma <em>deflate</em> berupa serangkaian bytes yang panjangnya tak tentu.
-Data tersebut kemudian dibagi ke dalam blok-blok yang panjangnya juga tak tentu. 
+<p>Data yang telah dipadatkan menggunakan algoritma <em>deflate</em> berupa serangkaian byte yang panjangnya tak tentu.
+Data tersebut kemudian dibagi ke dalam blok-blok yang panjangnya juga tak tentu.
 Kecuali untuk blok yang tidak dipadatkan akan memiliki panjang maksimum 65535 byte.
-Tentu saja data tersebut minimum boleh terdiri dari satu blok saja.
-<img src="data-stream.svg" alt="data-stream" /></p>
+Tentu saja data tersebut minimum boleh terdiri dari satu blok saja.</p>
+
+<p><img src="data-stream.svg" alt="data-stream"></p>
+
+<p>Blok-blok ini tidak musti dimulai pada byte tertentu, atau berakhir pada byte tertentu.
+Satu blok bisa dimulai pada pertengahan byte dan berakhir pada pertengahan byte juga.
+Batas awal dan batas akhir untuk satu blok ada pada bit, bukan byte.</p>
 
 <h3 id="jenis-jenis-blok">Jenis-jenis blok</h3>
 <ul>
-  <li>Blok yang tidak dikompress
-Sesuai namanya, blok ini tidak diapa-apakan, benar-benar data mentah. Panjangnya dibatasi maksimum 65535 byte.
-Blok ini terdiri dari header dan body. Body dimulai pada byte berikutnya.
-<img src="uncompressed-block.svg" alt="uncompresses-block" /></li>
-  <li>Blok yang dikompress menggunakan <em>Fixed Huffman Tree</em>
-Blok ini terdiri dari header dan body. Body dimulai pada bit berikutnya.
-<img src="fixed-block.svg" alt="fixed-block" /></li>
-  <li>Blok yang dikompress menggunakan <em>Dynamic Huffman Tree</em>
-Blok ini terdiri dari header, Huffman Tree A, Huffman Tree B, body. Huffman Tree A, B dan body dimulai pada bit berikutnya.
-<img src="dynamic-block.svg" alt="dynamic-block" /></li>
+  <li>
+    <p>Blok yang tidak dipadatkan</p>
+
+    <p>Sesuai namanya, blok ini tidak diapa-apakan, benar-benar data mentah. Panjangnya dibatasi maksimum 65535 byte.
+Blok ini terdiri dari header, sub header, dan body. Sub header dan body dimulai pada byte berikutnya.</p>
+
+    <p><img src="uncompressed-block.svg" alt="uncompresses-block"></p>
+  </li>
+  <li>
+    <p>Blok yang dipadatkan menggunakan <em>Fixed Huffman Tree</em></p>
+
+    <p>Blok ini terdiri dari header dan body. Body dimulai pada bit berikutnya,
+tidak seperti blok yang tidak dipadatkan, dimana body dimulai pada byte berikut,
+sedangkan blok yang dipadatkan body akan dimulai pada bit berikut.</p>
+
+    <p><img src="fixed-block.svg" alt="fixed-block"></p>
+  </li>
+  <li>
+    <p>Blok yang dipadatkan menggunakan <em>Dynamic Huffman Tree</em></p>
+
+    <p>Blok ini terdiri dari header, Huffman Tree A, Huffman Tree B, body.
+Huffman Tree A, B dan body dimulai pada bit berikutnya.
+Sama seperti blok yang dipadatkan menggunakan <em>Fixed Huffman Tree</em>,
+body dimulai pada bit berikutnya, bukan byte berikutnya.</p>
+
+    <p><img src="dynamic-block.svg" alt="dynamic-block"></p>
+  </li>
 </ul>
+
+<h3 id="header">Header</h3>
+<p>Semua blok diawali dengan sebuah header. Header terdiri dari 3 bit saja.
+  * bit pertama adalah BFINAL atau penanda apakah blok ini adalah blok terakhir atau bukan.
+    Jika nilainya 0 maka ini bukan bit terakhir. Jika nilainya 1, maka ini adalah blok terakhir</p>
+
+<ul>
+  <li>
+    <p>dua bit berikutnya adalah BTYPE atau jenis blok.</p>
+
+    <ul>
+      <li>00 : blok ini tidak dipadatkan</li>
+      <li>01 : blok ini dipadatkan menggunakan <em>Fixed Huffman Tree</em>
+</li>
+      <li>10 : blok ini dipadatkan menggunakan <em>Dynamic Huffman Tree</em>
+</li>
+      <li>11 : tidak dipakai, atau error</li>
+    </ul>
+
+    <p>00, 01, 10, dan 11 adalah bilangan basis dua(biner) yang bila dikonversi ke basis 10(desimal) akan menjadi 0, 1, 2, dan 3</p>
+
+    <p>pseudo code berikut akan menjelaskan fungsi BFINAL dan BTYPE saat melakukan decoding(mencairkan data)</p>
+  </li>
+</ul>
+
+<div class="language-python highlighter-coderay">
+<div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>  BFINAL = false
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  <span style="color:#080;font-weight:bold">while</span> <span style="color:#080;font-weight:bold">not</span> BFINAL:
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>    BFINAL = data.bacaBit(<span style="color:#00D">1</span>) <span style="color:#777">#baca satu bit dari data</span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>    BTYPE  = data.bacaBit(<span style="color:#00D">2</span>) <span style="color:#777">#baca dua bit dari data</span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>    case BTYPE
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>    of TIDAK_DIPADATKAN: <span style="color:#777"># 00</span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>        hasil = data.ambilSaja()
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>    of DIPADATKAN_FIXED_HUFFMAN_TREE: <span style="color:#777">#01</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>        hasil = data.cairkanMenggunakanFixedHuffmanTree()
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>    of DIPADATKAN_DYNAMIC_HUFFMAN_TREE: <span style="color:#777">#10</span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>        hasil = data.cairkanMenggunakanDynamicHuffmanTree()
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>    <span style="color:#080;font-weight:bold">else</span>: error(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">"</span><span style="color:#D20">BTYPE ini tidak boleh ada</span><span style="color:#710">"</span></span>)  <span style="color:#777">#11</span>
+</pre></div>
+</div>
+</div>
+<p><br></p>
+
+<h3 id="blok-yang-tidak-dipadatkan">Blok yang tidak dipadatkan</h3>
+
+<p>… bersambung</p>
 
     </div>
     <div id="sidebar">
-      <h2>Documentation</h2>
+      <h2>Deflate</h2>
       <ul>
-        <li><a href="http://nanoc.ws/about/">About</a></li>
-        <li><a href="http://nanoc.ws/doc/">Documentation</a></li>
-        <li><a href="http://nanoc.ws/doc/tutorial/">Tutorial</a></li>
+        <li><a href="http://nanoc.ws/about/">Struktur data Deflate</a></li>
+        <li><a href="http://nanoc.ws/doc/">Algoritma Huffman</a></li>
+        <li><a href="http://nanoc.ws/doc/tutorial/">Algoritma LZ77</a></li>        
+        <li><a href="http://nanoc.ws/about/">Algoritma Package-Merge</a></li>
+        <li><a href="http://nanoc.ws/about/">Algoritma Deflate</a></li>
+        <li><a href="http://nanoc.ws/about/">zlib dan gzip</a></li>
       </ul>
-      <h2>Community</h2>
+      <h2>JPEG</h2>
+      <ul>
+        <li><a href="http://nanoc.ws/about/">Color Space Conversion</a></li>
+        <li><a href="http://nanoc.ws/doc/">JPEG Quantization Table</a></li>
+        <li><a href="http://nanoc.ws/doc/tutorial/">JPEG Huffman Coding</a></li>        
+        <li><a href="http://nanoc.ws/about/">Chroma Subsampling</a></li>
+        <li><a href="http://nanoc.ws/about/">JPEG Encoder Design</a></li>
+        <li><a href="http://nanoc.ws/about/">JPEG Optimization</a></li>
+        <li><a href="http://nanoc.ws/about/">JPEG Decoder Design</a></li>
+      </ul>
+      <h2>Kode Sumber</h2>
       <ul>
         <li><a href="http://groups.google.com/group/nanoc/">Discussion group</a></li>
         <li><a href="irc://chat.freenode.net/#nanoc">IRC channel</a></li>
