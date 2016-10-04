@@ -50,7 +50,7 @@ Maka angka x08 x02 akan bernilai 8 + 512 = 520 dalam basis desimal.</p>
   <li>
     <p>Menggabungkan bit-bit ke dalam satu byte</p>
 
-    <p>Umumnya data akan disimpan sesuai urutan bitnya yaitu dari kiri ke kanan, akan tetapi untuk <strong>Kode Huffman</strong>,
+    <p>Umumnya data akan disimpan sesuai urutan bitnya yaitu dari kanan ke kiri, akan tetapi untuk <strong>Kode Huffman</strong>,
 data disimpan dengan posisi terbalik yaitu mulai dari bit 7 menuju bit 0, atau dari kiri ke kanan.</p>
   </li>
 </ul>
@@ -207,11 +207,11 @@ sedangakan satu Kode Huffman bisa bervariasi panjang bit-nya, tergantung cara ki
 <p>Simbol γ yang merupakan penanda akhir blok mewakili Kode Huffman 256.
 Kode Huffman 256 tidak mewakili nilai harfiah manapun, tapi mewakili sebuah action, bahwa pembacaan blok harus diakhiri.</p>
 
-<p>Simbol β mewakili pasangan λ dan δ. satu &amp;lambda selalu diikuti oleh satu δ.</p>
+<p>Simbol β mewakili pasangan pengulangan λ dan δ. satu λ selalu diikuti oleh satu δ.</p>
 
 <p>Simbol λ mewakili Kode Huffman 257-285.
-Kode Huffman 257-285 ini mewakili panjang pengulangan simbol α sebanyak 3-258 byte.
-Tetapi bagaimana kode sebanyak 28 buah(285-257 = 28) bisa mewakili panjang 255 macam (258-3 = 255)?</p>
+Kode Huffman 257-285 ini mewakili banyaknya simbol α sebanyak 3-258 byte.
+Tetapi bagaimana kode sebanyak 28 buah(285-257 = 28) bisa mewakili rentang 3-258?</p>
 
 <p>Caranya adalah: sesudah kemunculan λ gunakan tabel dibawah ini untuk menentukan extra bit yang mungkin mengikuti λ.
 Extra bit ini dibaca sama seperti membaca angka integer dengan urutan bit 76543210. Contoh 1110 akan bernilai 14.</p>
@@ -572,14 +572,14 @@ Kembali kita akan menggunakan extra bit dan menghitung nilainya menggunakan tabe
 <span class="line-numbers"><a href="#n25" name="n25">25</a></span>    <span style="color:#080;font-weight:bold">if</span> kode == <span style="color:#00D">256</span>: <span style="color:#080;font-weight:bold">break</span> <span style="color:#777">#keluar dari loop</span>
 <span class="line-numbers"><a href="#n26" name="n26">26</a></span>    <span style="color:#080;font-weight:bold">if</span> kode &gt;= <span style="color:#00D">0</span> <span style="color:#080;font-weight:bold">and</span> kode &lt;= <span style="color:#00D">255</span>:  <span style="color:#777"># nilai harfiah</span>
 <span class="line-numbers"><a href="#n27" name="n27">27</a></span>      output.tambahkanNilaiHarfiah(kode)
-<span class="line-numbers"><a href="#n28" name="n28">28</a></span>    <span style="color:#080;font-weight:bold">if</span> kode &gt;= <span style="color:#00D">257</span> <span style="color:#080;font-weight:bold">and</span> kode &lt;= <span style="color:#00D">285</span>: <span style="color:#777"># ketemu simbol &amp;beta; yang diawali &amp;lambda;/panjang pengulangan</span>
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>    <span style="color:#080;font-weight:bold">if</span> kode &gt;= <span style="color:#00D">257</span> <span style="color:#080;font-weight:bold">and</span> kode &lt;= <span style="color:#00D">285</span>: <span style="color:#777"># ketemu simbol pengulangan</span>
 <span class="line-numbers"><a href="#n29" name="n29">29</a></span>      base = LENGTH_BASE[kode]
-<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>      pengulangan = base + data.bacaBit(LENGTH_EXTRA[kode])
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>      gamma = base + data.bacaBit(LENGTH_EXTRA[kode])
 <span class="line-numbers"><a href="#n31" name="n31">31</a></span>      
 <span class="line-numbers"><a href="#n32" name="n32">32</a></span>      kode = data.bacaKodeHuffman(PakaiTreeDelta)
 <span class="line-numbers"><a href="#n33" name="n33">33</a></span>      base = DISTANCE_BASE[kode]
-<span class="line-numbers"><a href="#n34" name="n34">34</a></span>      jarak = base + data.bacaBit(DISTANCE_EXTRA[kode])
-<span class="line-numbers"><a href="#n35" name="n35">35</a></span>      output.tambahkanNilaiHarfiahSebanyak(pengulangan).padaPosisi(jarak)
+<span class="line-numbers"><a href="#n34" name="n34">34</a></span>      delta = base + data.bacaBit(DISTANCE_EXTRA[kode])
+<span class="line-numbers"><a href="#n35" name="n35">35</a></span>      output.tambahkanNilaiHarfiahSebanyak(gamma).padaPosisi(delta)
 </pre></div>
 </div>
 </div>
