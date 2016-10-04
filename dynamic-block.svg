@@ -25,8 +25,8 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.89"
-     inkscape:cx="316.63127"
+     inkscape:zoom="1.44"
+     inkscape:cx="295.10678"
      inkscape:cy="-1.1502356"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -48,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -57,97 +57,113 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-18.666447,-220.66447)">
-    <g
-       id="g3441"
-       transform="translate(-53.201971,-8.0255683)">
-      <rect
-         style="fill:#ffd5d5;stroke:#280b0b;stroke-width:0.47992936"
-         y="228.93001"
-         x="72.108383"
-         height="31.781416"
-         width="118.57306"
-         id="rect3411" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3428"
-         y="250.40544"
-         x="103.85677"
-         style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
-           y="250.40544"
-           x="103.85677"
-           id="tspan3430"
-           sodipodi:role="line">Header</tspan></text>
-    </g>
-    <g
-       id="g3436"
-       transform="translate(216.0105,-8.7232001)">
-      <rect
-         style="fill:#ffd5d5;stroke:#280b0b;stroke-width:0.47992936"
-         y="229.62764"
-         x="190.51921"
-         height="31.781416"
-         width="287.26221"
-         id="rect3411-9" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3432"
-         y="249.70781"
-         x="251.06804"
-         style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
-           y="249.70781"
-           x="251.06804"
-           id="tspan3434"
-           sodipodi:role="line">Data yang dipadatkan</tspan></text>
-    </g>
-    <g
-       id="g3503"
-       transform="translate(25.123153,-47.586772)">
-      <g
-         id="g3508"
-         transform="translate(-0.98522187,-0.49261132)">
-        <rect
-           id="rect3411-9-7"
-           width="134.70335"
-           height="31.931923"
-           x="112.94389"
-           y="268.90857"
-           style="fill:#ffd5d5;stroke:#280b0b;stroke-width:0.32942244" />
-        <text
-           xml:space="preserve"
-           style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-           x="157.2023"
-           y="290.32742"
-           id="text3473"
-           sodipodi:linespacing="125%"><tspan
-             sodipodi:role="line"
-             id="tspan3475"
-             x="157.2023"
-             y="290.32742">HFT A</tspan></text>
-      </g>
-    </g>
-    <g
-       id="g3498"
-       transform="translate(75.147072,-79.606452)">
-      <rect
-         style="fill:#ffd5d5;stroke:#280b0b;stroke-width:0.32942244"
-         y="300.43564"
-         x="196.68773"
-         height="31.931923"
-         width="134.70335"
-         id="rect3411-9-7-6" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3473-7"
-         y="321.85449"
-         x="241.1329"
-         style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
-           y="321.85449"
-           x="241.1329"
-           id="tspan3475-3"
-           sodipodi:role="line">HFT B</tspan></text>
-    </g>
+    <rect
+       id="rect3411"
+       width="74.228226"
+       height="31.881025"
+       x="18.856607"
+       y="220.85463"
+       style="fill:#ffd5d5;stroke:#280b0b;stroke-width:0.3803193" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="27.043694"
+       y="242.37987"
+       id="text3428"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3430"
+         x="27.043694"
+         y="242.37987">Header</tspan></text>
+    <rect
+       id="rect3411-9"
+       width="182.49791"
+       height="31.878231"
+       x="511.34244"
+       y="220.85603"
+       style="fill:#ffd5d5;stroke:#280b0b;stroke-width:0.38311356" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="519.85632"
+       y="241.67905"
+       id="text3432"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3434"
+         x="519.85632"
+         y="241.67905">Data yang dipadatkan</tspan></text>
+    <rect
+       id="rect3411-9-7"
+       width="104.18732"
+       height="31.971451"
+       x="93.312065"
+       y="220.80943"
+       style="fill:#ffd5d5;stroke:#280b0b;stroke-width:0.28989455" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="106.34023"
+       y="242.24805"
+       id="text3473"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="106.34023"
+         y="242.24805"
+         id="tspan3419">Subheader</tspan></text>
+    <rect
+       id="rect3411-9-7-6"
+       width="104.88081"
+       height="31.970491"
+       x="406.53775"
+       y="220.80991"
+       style="fill:#ffd5d5;stroke:#280b0b;stroke-width:0.29085338" />
+    <rect
+       id="rect3411-9-7-4"
+       width="104.18732"
+       height="31.971451"
+       x="197.82278"
+       y="220.96786"
+       style="fill:#ffd5d5;stroke:#280b0b;stroke-width:0.28989455" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="238.64474"
+       y="242.5383"
+       id="text3473-0"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="238.64474"
+         y="242.5383"
+         id="tspan3419-0">HC</tspan></text>
+    <rect
+       id="rect3411-9-7-4-1"
+       width="104.18732"
+       height="31.971451"
+       x="301.98944"
+       y="220.96786"
+       style="fill:#ffd5d5;stroke:#280b0b;stroke-width:0.28989455" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="335.1283"
+       y="241.71204"
+       id="text3473-0-3"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="335.1283"
+         y="241.71204"
+         id="tspan3419-0-7">Alpha</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="439.49979"
+       y="241.12027"
+       id="text3489"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3491"
+         x="439.49979"
+         y="241.12027">Delta</tspan></text>
   </g>
 </svg>
