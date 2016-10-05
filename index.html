@@ -81,26 +81,26 @@ Blok ini terdiri dari header, sub header, dan body. Sub header dan body dimulai 
   <li>
     <p>Blok yang dipadatkan menggunakan <em>Fixed Huffman Tree</em></p>
 
-    <p>Blok ini terdiri dari header dan body. Body dimulai pada bit berikutnya,
-tidak seperti blok yang tidak dipadatkan, dimana body dimulai pada byte berikut,
-sedangkan blok yang dipadatkan body akan dimulai pada bit berikut.</p>
+    <p>Blok ini terdiri dari header dan <em>body</em>. <em>Body</em> dimulai pada bit berikutnya,
+tidak seperti blok yang tidak dipadatkan, dimana <em>body</em> dimulai pada byte berikut,
+sedangkan blok yang dipadatkan <em>body</em> akan dimulai pada bit berikut.</p>
 
     <p><img src="fixed-block.svg" alt="fixed-block"></p>
   </li>
   <li>
     <p>Blok yang dipadatkan menggunakan <em>Dynamic Huffman Tree</em></p>
 
-    <p>Blok ini terdiri dari header, subheader, Huffman Tree HC, Huffman Tree Alpha, Huffman Tree Delta, body.
-Huffman Tree HC, Alpha, Delta dan body dimulai pada bit berikutnya.
+    <p>Blok ini terdiri dari header, subheader, <em>Huffman Tree HC</em>, <em>Huffman Tree Alpha</em>, <em>Huffman Tree Delta</em>, dan <em>body</em>.
+<em>Huffman Tree HC</em>, <em>Alpha</em>, <em>Delta</em> dan <em>body</em> dimulai pada bit berikutnya.
 Sama seperti blok yang dipadatkan menggunakan <em>Fixed Huffman Tree</em>,
-body dimulai pada bit berikutnya, bukan byte berikutnya.</p>
+<em>body</em> dimulai pada bit berikutnya, bukan byte berikutnya.</p>
 
     <p><img src="dynamic-block.svg" alt="dynamic-block"></p>
   </li>
 </ul>
 
-<h3 id="header">Header</h3>
-<p>Semua blok diawali dengan sebuah header. Header terdiri dari 3 bit saja.</p>
+<h3 id="header"><em>Header</em></h3>
+<p>Semua blok diawali dengan sebuah <em>header</em>. <em>Header</em> terdiri dari 3 bit saja.</p>
 
 <ul>
   <li>
@@ -121,7 +121,7 @@ Jika nilainya 0 maka ini bukan bit terakhir. Jika nilainya 1, maka ini adalah bl
 
     <p>00, 01, 10, dan 11 adalah bilangan basis dua(biner) yang bila dikonversi ke basis 10(desimal) akan menjadi 0, 1, 2, dan 3</p>
 
-    <p>pseudo code berikut akan menjelaskan fungsi BFINAL dan BTYPE saat melakukan decoding(mencairkan data)</p>
+    <p><em>pseudo code</em> berikut akan menjelaskan fungsi BFINAL dan BTYPE saat melakukan <em>decoding</em>(mencairkan data)</p>
   </li>
 </ul>
 
@@ -148,11 +148,11 @@ Jika nilainya 0 maka ini bukan bit terakhir. Jika nilainya 1, maka ini adalah bl
 
 <h3 id="blok-yang-tidak-dipadatkan">Blok yang tidak dipadatkan</h3>
 
-<p>Setelah header, abaikan bit-bit berikut sampai batas byte selanjutnya.
+<p>Setelah <em>header</em>, abaikan bit-bit berikut sampai batas byte selanjutnya.
 Setelah itu baca dua byte berikutnya sebagai LEN, atau panjang badan blok.
 Setelah itu baca lagi dua byte berikutnya sebagai NLEN, atau komplemen dari LEN.</p>
 
-<p>Andaikan blok ini dimulai pada bit 0, maka byte yang berisi header akan tampak seperti ini 76543hhh.
+<p>Andaikan blok ini dimulai pada bit 0, maka byte yang berisi <em>header</em> akan tampak seperti ini 76543hhh.
 bit 3,4,5,6,7 diabaikan saja, langsung menuju byte berikutnya.</p>
 
 <p>LEN adalah bilangan bulat 16 bit, byte pertama 0-255, byte kedua juga 0-255 tapi nilainya kali 256.
@@ -163,38 +163,41 @@ Maksudnya bit bit pada NLEN adalah kebalikan dari bit-bit pada LEN. Jika LEN ter
 maka NLEN adalah 00001111 00001111.</p>
 
 <p>Untuk memeriksa apakah LEN adalah komplemen dari NLEN, pada kebanyakan bahasa pemrograman bisa digunakan operator <strong>or</strong>,
-atau kalau dalam bahasa C bisa gunakan operator <code>|</code>. Operator aritmetik <code>+</code> juga bisa digunakan karena akan
+atau kalau dalam bahasa C bisa gunakan operator <strong><code>|</code></strong>. Operator aritmetik <strong><code>+</code></strong> juga bisa digunakan karena akan
 menghasilkan nilai yang sama walaupun definisinya agak beda(kalau dalam bahasa assembly).
 Jika hasil operator tersebut tidak sama dengan 0xFFFF atau 65535, maka integritas data diragukan.</p>
 
 <div class="language-python highlighter-coderay">
 <div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>  <span style="color:#777"># untuk mesin Big Endian dan Little Endian</span>
-<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  LEN = data.bacaByte(<span style="color:#00D">1</span>) + data.bacaByte(<span style="color:#00D">1</span>) * <span style="color:#00D">256</span>
-<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  NLEN = data.bacaByte(<span style="color:#00D">1</span>) + data.bacaByte(<span style="color:#00D">1</span>) * <span style="color:#00D">256</span>
-<span class="line-numbers"><a href="#n4" name="n4">4</a></span>
-<span class="line-numbers"><a href="#n5" name="n5">5</a></span>  <span style="color:#080;font-weight:bold">if</span> LEN <span style="color:#080;font-weight:bold">or</span> NLEN != <span style="color:#00D">65535</span>: error(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">"</span><span style="color:#D20">gawat</span><span style="color:#710">"</span></span>)  <span style="color:#777"># baris ini sama dengan baris dibawah</span>
-<span class="line-numbers"><a href="#n6" name="n6">6</a></span>  <span style="color:#080;font-weight:bold">if</span> LEN + NLEN != <span style="color:#00D">65535</span>: error(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">"</span><span style="color:#D20">gawat</span><span style="color:#710">"</span></span>)
-<span class="line-numbers"><a href="#n7" name="n7">7</a></span>
-<span class="line-numbers"><a href="#n8" name="n8">8</a></span>  body = data.bacaByte(LEN) <span style="color:#777"># baca data yang tidak dipadatkan sebanyak LEN byte</span>
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>  data.majuHinggaByteBerikutnya()
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  <span style="color:#777"># untuk mesin Big Endian dan Little Endian</span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>  LEN = data.bacaByte(<span style="color:#00D">1</span>) + data.bacaByte(<span style="color:#00D">1</span>) * <span style="color:#00D">256</span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>  NLEN = data.bacaByte(<span style="color:#00D">1</span>) + data.bacaByte(<span style="color:#00D">1</span>) * <span style="color:#00D">256</span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>  <span style="color:#080;font-weight:bold">if</span> LEN <span style="color:#080;font-weight:bold">or</span> NLEN != <span style="color:#00D">65535</span>: error(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">"</span><span style="color:#D20">gawat</span><span style="color:#710">"</span></span>)  <span style="color:#777"># baris ini sama dengan baris dibawah</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>  <span style="color:#080;font-weight:bold">if</span> LEN + NLEN != <span style="color:#00D">65535</span>: error(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">"</span><span style="color:#D20">gawat</span><span style="color:#710">"</span></span>)
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  body = data.bacaByte(LEN) <span style="color:#777"># baca data yang tidak dipadatkan sebanyak LEN byte</span>
 </pre></div>
 </div>
 </div>
 
 <p>Jadi sebenarnya, panjang maksimum keseluruhan blok yang tidak dipadatkan tidak hanya 65535 byte,
-tetapi ditambah sub header sebanyak 4 byte.
-Kemudian ditambah 3 bit header, dan ditambah sekian bit yang diabaikan jika ada.</p>
+tetapi ditambah <em>sub header</em> sebanyak 4 byte.
+Kemudian ditambah 3 bit <em>header</em>, dan ditambah sekian bit yang diabaikan jika ada.</p>
 
-<h3 id="body-dari-blok-yang-dipadatkan">Body dari blok yang dipadatkan</h3>
+<h3 id="body-dari-blok-yang-dipadatkan">
+<em>Body</em> dari blok yang dipadatkan</h3>
 
-<p>Blok yang dipadatkan menggunakan Fixed Huffman Tree maupun yang dipadatkan menggunakan
-Dynamic Huffman Tree mempunyai struktur body yang sama.
-Body terdiri dari simbol-simbol yang saya kategorikan α, β, γ, λ, dan δ.
+<p>Blok yang dipadatkan menggunakan <em>Fixed Huffman Tree</em> maupun yang dipadatkan menggunakan
+<em>Dynamic Huffman Tree</em> mempunyai struktur <em>body</em> yang sama.
+<em>Body</em> terdiri dari simbol-simbol yang saya kategorikan α, β, γ, λ, dan δ.
 Walaupun simbol-simbol ini tidak terdapat dalam literatur mengenai algoritma <em>deflate</em>,
 menurut saya, algoritma <em>deflate</em> lebih mudah dijelaskan jika digunakan kategori untuk membedakan
 yang mana simbol, yang mana kode huffman, dan yang mana adalah nilai harfiah.</p>
 
-<p>Body dari blok yang dipadatkan akan memiliki jumlah α dan β dalam jumlah tak tentu,
+<p><em>Body</em> dari blok yang dipadatkan akan memiliki jumlah α dan β dalam jumlah tak tentu,
 kemudian setiap blok akan diakhiri dengan γ yang merupakan penanda bahwa blok itu sudah berakhir.
 Setiap blok hanya memiliki satu simbol γ.</p>
 
@@ -202,7 +205,7 @@ Setiap blok hanya memiliki satu simbol γ.</p>
 
 <p>Simbol α mewakili Kode Huffman 0-255. Kode Huffman 0-255 juga mewakili nilai harfiah dari byte-byte bernilai 0-255.
 Bedanya Kode Huffman 0-255 dengan byte harfiah yang bernilai 0-255 adalah: satu byte selalu delapan bit panjangnya,
-sedangakan satu Kode Huffman bisa bervariasi panjang bit-nya, tergantung cara kita membuat/memakai Huffman Tree-nya.</p>
+sedangakan satu Kode Huffman bisa bervariasi panjang bit-nya, tergantung cara kita membuat/memakai <em>Huffman Tree</em>-nya.</p>
 
 <p>Simbol γ yang merupakan penanda akhir blok mewakili Kode Huffman 256.
 Kode Huffman 256 tidak mewakili nilai harfiah manapun, tapi mewakili sebuah action, bahwa pembacaan blok harus diakhiri.</p>
@@ -213,14 +216,14 @@ Kode Huffman 256 tidak mewakili nilai harfiah manapun, tapi mewakili sebuah acti
 Kode Huffman 257-285 ini mewakili banyaknya simbol α sebanyak 3-258 byte.
 Tetapi bagaimana kode sebanyak 28 buah(285-257 = 28) bisa mewakili rentang 3-258?</p>
 
-<p>Caranya adalah: sesudah kemunculan λ gunakan tabel dibawah ini untuk menentukan extra bit yang mungkin mengikuti λ.
-Extra bit ini dibaca sama seperti membaca angka integer dengan urutan bit 76543210. Contoh 1110 akan bernilai 14.</p>
+<p>Caranya adalah: sesudah kemunculan λ gunakan tabel dibawah ini untuk menentukan <em>extra bit</em> yang mungkin mengikuti λ.
+E<em>xtra bit</em> ini dibaca sama seperti membaca angka integer dengan urutan bit 76543210. Contoh 1110 akan bernilai 14.</p>
 
 <table>
   <thead>
     <tr>
       <th style="text-align: center">Kode Huffman</th>
-      <th style="text-align: center">Extra Bit</th>
+      <th style="text-align: center"><em>Extra Bit</em></th>
       <th style="text-align: center">Panjang</th>
     </tr>
   </thead>
@@ -377,13 +380,13 @@ Extra bit ini dibaca sama seperti membaca angka integer dengan urutan bit 765432
 Simbol berikutnya yang mengikuti λ adalah δ. Simbol ini mewakili Kode Huffman 0-31.
 Akan tetapi hanya 0-29 yang dipakai. Kode 30 dan 31 tidak dipakai. Kode Huffman 0-29 ini mewakili
 jarak 1-32.768. Bagaimana 0-29 bisa mewakili 1-32.768?
-Kembali kita akan menggunakan extra bit dan menghitung nilainya menggunakan tabel dibawah ini.</p>
+Kembali kita akan menggunakan <em>extra bit</em> dan menghitung nilainya menggunakan tabel dibawah ini.</p>
 
 <table>
   <thead>
     <tr>
       <th style="text-align: center">Kode Huffman</th>
-      <th style="text-align: center">Extra Bit</th>
+      <th style="text-align: center"><em>Extra Bit</em></th>
       <th style="text-align: center">Jarak</th>
     </tr>
   </thead>
@@ -573,13 +576,15 @@ Kembali kita akan menggunakan extra bit dan menghitung nilainya menggunakan tabe
 <span class="line-numbers"><a href="#n26" name="n26">26</a></span>    <span style="color:#080;font-weight:bold">if</span> kode &gt;= <span style="color:#00D">0</span> <span style="color:#080;font-weight:bold">and</span> kode &lt;= <span style="color:#00D">255</span>:  <span style="color:#777"># nilai harfiah</span>
 <span class="line-numbers"><a href="#n27" name="n27">27</a></span>      output.tambahkanNilaiHarfiah(kode)
 <span class="line-numbers"><a href="#n28" name="n28">28</a></span>    <span style="color:#080;font-weight:bold">if</span> kode &gt;= <span style="color:#00D">257</span> <span style="color:#080;font-weight:bold">and</span> kode &lt;= <span style="color:#00D">285</span>: <span style="color:#777"># ketemu simbol pengulangan</span>
-<span class="line-numbers"><a href="#n29" name="n29">29</a></span>      base = LENGTH_BASE[kode]
-<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>      gamma = base + data.bacaBit(LENGTH_EXTRA[kode])
-<span class="line-numbers"><a href="#n31" name="n31">31</a></span>      
-<span class="line-numbers"><a href="#n32" name="n32">32</a></span>      kode = data.bacaKodeHuffman(PakaiTreeDelta)
-<span class="line-numbers"><a href="#n33" name="n33">33</a></span>      base = DISTANCE_BASE[kode]
-<span class="line-numbers"><a href="#n34" name="n34">34</a></span>      delta = base + data.bacaBit(DISTANCE_EXTRA[kode])
-<span class="line-numbers"><a href="#n35" name="n35">35</a></span>      output.tambahkanNilaiHarfiahSebanyak(gamma).padaPosisi(delta)
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>      kode = kode - <span style="color:#00D">257</span>  <span style="color:#777"># kurangi 257 supaya bisa digunakan sebagai index array</span>
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>      base = LENGTH_BASE[kode]
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span>      <span style="color:#080;font-weight:bold">lambda</span> = base + data.bacaBit(LENGTH_EXTRA[kode])
+<span class="line-numbers"><a href="#n32" name="n32">32</a></span>      
+<span class="line-numbers"><a href="#n33" name="n33">33</a></span>      kode = data.bacaKodeHuffman(PakaiTreeDelta) 
+<span class="line-numbers"><a href="#n34" name="n34">34</a></span>      <span style="color:#777"># kode tidak perlu dikurangi karena bisa langsung digunakan sebagai index</span>
+<span class="line-numbers"><a href="#n35" name="n35">35</a></span>      base = DISTANCE_BASE[kode]
+<span class="line-numbers"><a href="#n36" name="n36">36</a></span>      delta = base + data.bacaBit(DISTANCE_EXTRA[kode])
+<span class="line-numbers"><a href="#n37" name="n37">37</a></span>      output.tambahkanNilaiHarfiahSebanyak(<span style="color:#080;font-weight:bold">lambda</span>).padaPosisi(delta)
 </pre></div>
 </div>
 </div>
@@ -588,10 +593,10 @@ Kembali kita akan menggunakan extra bit dan menghitung nilainya menggunakan tabe
 
 <p>Baik α, γ, maupun λ di-<em>encode</em> atau dikodekan menggunakan <em>Huffman Tree</em> yang sama.
 Sedangankan δ dikodekan dengan <em>Huffman Tree</em> yang berbeda. 
-Setiap blok yang dipadatkan akan menggunakan dua Huffman Tree yang saya sebut Huffman Tree Alpha dan Huffman Tree Delta.
-Untuk blok yang dipadatkan menggunakan Fixed Huffman Tree, Huffman Tree Alpha dan Delta sudah didefinisikan.</p>
+Setiap blok yang dipadatkan akan menggunakan dua <em>Huffman Tree</em> yang saya sebut <em>Huffman Tree Alpha</em> dan <em>Huffman Tree Delta</em>.
+Untuk blok yang dipadatkan menggunakan <em>Fixed Huffman Tree</em>, <em>Huffman Tree Alpha</em> dan <em>Delta</em> sudah didefinisikan.</p>
 
-<p>Ini Tabel untuk Huffman Tree Alpha(Fixed), kode 286 dan 287 tidak digunakan.</p>
+<p>Ini Tabel untuk <em>Huffman Tree Alpha</em>(Fixed), kode 286 dan 287 tidak digunakan.</p>
 
 <table>
   <thead>
@@ -625,39 +630,248 @@ Untuk blok yang dipadatkan menggunakan Fixed Huffman Tree, Huffman Tree Alpha da
   </tbody>
 </table>
 
-<p>Untuk Huffman Tree Delta(Fixed) digunakan banyaknya bit yang tetap yaitu 5. 
-Pada blok yang dipadatkan menggunakan Fixed Huffman Tree, 
-baik Huffman Tree Alpha maupun Delta tidak perlu disertakan dalam blok.</p>
+<p>Untuk <em>Huffman Tree Delta</em>(Fixed) digunakan banyaknya bit yang tetap yaitu 5. 
+Perhatikan bahwa Kode Biner Huffman dan Biner Integer pada tabel ini kebetulan sama,
+untuk yang <em>Dynamic Huffman Tree</em> tidaklah demikian halnya.</p>
 
-<p>Sedangkan untuk blok yang dipadatkan menggunakan Dynamic Huffman Tree, Huffman Tree Alpha dan Delta perlu disertakan pada blok.
-Pada blok yang dipadatkan menggunakan Dynamic Huffman Tree, 
-Huffman Tree Alpha dan Delta disimpan dalam bentuk yang sudah dipadatkan.
-Dan Huffman Tree yang digunakan untuk memadatkan kedua Tree tersabut adalah Tree HC. Memang agak memusingkan.</p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Kode Huffman</th>
+      <th style="text-align: center">Banyaknya Bit</th>
+      <th style="text-align: center">Kode Biner</th>
+      <th style="text-align: center">Biner Integer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">00000</td>
+      <td style="text-align: center">00000</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">00001</td>
+      <td style="text-align: center">00001</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">00010</td>
+      <td style="text-align: center">00010</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">00011</td>
+      <td style="text-align: center">00011</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">4</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">00100</td>
+      <td style="text-align: center">00100</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">00101</td>
+      <td style="text-align: center">00101</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">6</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">00110</td>
+      <td style="text-align: center">00110</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">7</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">00111</td>
+      <td style="text-align: center">00111</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">8</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">01000</td>
+      <td style="text-align: center">01000</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">9</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">01001</td>
+      <td style="text-align: center">01001</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">10</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">01010</td>
+      <td style="text-align: center">01010</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">11</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">01011</td>
+      <td style="text-align: center">01011</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">12</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">01100</td>
+      <td style="text-align: center">01100</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">13</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">01101</td>
+      <td style="text-align: center">01101</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">14</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">01110</td>
+      <td style="text-align: center">01110</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">15</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">01111</td>
+      <td style="text-align: center">01111</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">16</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">10000</td>
+      <td style="text-align: center">10000</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">17</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">10001</td>
+      <td style="text-align: center">10001</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">18</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">10010</td>
+      <td style="text-align: center">10010</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">19</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">10011</td>
+      <td style="text-align: center">10011</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">20</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">10100</td>
+      <td style="text-align: center">10100</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">21</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">10101</td>
+      <td style="text-align: center">10101</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">22</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">10110</td>
+      <td style="text-align: center">10110</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">23</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">10111</td>
+      <td style="text-align: center">10111</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">24</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">11000</td>
+      <td style="text-align: center">11000</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">25</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">11001</td>
+      <td style="text-align: center">11001</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">26</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">11010</td>
+      <td style="text-align: center">11010</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">27</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">11011</td>
+      <td style="text-align: center">11011</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">28</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">11100</td>
+      <td style="text-align: center">11100</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">29</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">11101</td>
+      <td style="text-align: center">11101</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">30</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">11110</td>
+      <td style="text-align: center">11110</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">31</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">11111</td>
+      <td style="text-align: center">11111</td>
+    </tr>
+  </tbody>
+</table>
 
-<p>Tree Alpha dan Tree Delta yang dipadatkan menggunakan Tree HC akan berisi Kode Huffman yang berbeda dengan penjelasan sebelumnya. 
-Kali ini Kode Huffmannya dibagi dalam empat kategori, yaitu:</p>
+<p>Pada blok yang dipadatkan menggunakan <em>Fixed Huffman Tree</em>, 
+kedua <em>Huffman Tree</em> yang digunakan yaitu <em>Huffman Tree Alpha</em> dan <em>Delta</em> tidak perlu disertakan dalam blok.
+Sedangkan untuk blok yang dipadatkan menggunakan <em>Dynamic Huffman Tree</em>, <em>Huffman Tree Alpha</em> dan <em>Delta</em> perlu disertakan pada blok.</p>
+
+<p>Pada blok yang dipadatkan menggunakan <em>Dynamic Huffman Tree</em>, 
+<em>Huffman Tree Alpha</em> dan <em>Delta</em> disimpan dalam bentuk yang sudah dipadatkan.
+Dan <em>Huffman Tree</em> yang digunakan untuk memadatkan kedua Tree tersabut adalah <em>Huffman Tree HC</em>. Memang agak memusingkan.</p>
+
+<p><em>Huffman Tree Alpha</em> dan <em>Delta</em> yang dipadatkan menggunakan <em>Huffman Tree HC</em> akan berisi Kode Huffman yang berbeda dengan penjelasan sebelumnya. 
+Kali ini Kode Huffman-nya dibagi dalam empat kategori, yaitu:</p>
 
 <ul>
-  <li>0-15 mewakili nilai harfiah 0-15</li>
+  <li>0-15 mewakili nilai panjang kode biner 0-15</li>
   <li>16 mewakili perintah salin kode sebelumnya sebanyak 3-6 kali, menggunakan bantuan extra 2 bit (00 = 3, 01 = 4, 10 = 5, 11 = 6).</li>
-  <li>17 mewakili perintah ulangi menulis nilai 0(zero) sebanyak 3-10 kali dengan bantuan extra 3 bit.</li>
-  <li>18 mewakili perintah ulangi menulis nilai 0(zero) sebanyak 11-138 kali dengan bantuan extra 7 bit.</li>
+  <li>17 mewakili perintah ulangi menulis nilai 0(<em>zero</em>) sebanyak 3-10 kali dengan bantuan extra 3 bit.</li>
+  <li>18 mewakili perintah ulangi menulis nilai 0(<em>zero</em>) sebanyak 11-138 kali dengan bantuan extra 7 bit.</li>
 </ul>
 
-<p>Bukankah Hufman Tree Alpha dan Delta yang dipadatkan menggunakan kode 0-287 dan 0-31, kenapa nilai harfiah Huffman Tree HC cuma
-0-15, ternyata yang disimpan bukan nilai harfiahnya, melainkan panjang kodenya dalam biner. 
-Contohnya untuk tabel Huffman Tree Alpha(Fixed) panjang kode binernya adalah 7-9 bit, sedangkan untuk yang Dynamic, 
-panjang kode binernya bervariasi antara 0-15 bit. 
-Dengan menggunakan panjang kode biner ini sudah cukup untuk merekonstruksi Huffman Tree.</p>
+<p>Bukankah <em>Hufman Tree Alpha</em> dan <em>Delta</em> yang dipadatkan menggunakan kode 0-287 dan 0-31, 
+kenapa nilai <em>Huffman Tree HC</em> yang dipakai cuma 0-15, 
+ternyata yang disimpan bukan nilai 0-287(butuh 9 bit) atau 0-31(butuh 5 bit), melainkan panjang kodenya dalam biner. 
+Contohnya untuk tabel <em>Huffman Tree Alpha</em>(Fixed) panjang kode binernya adalah 7-9 bit, sedangkan untuk yang <em>Dynamic</em>, 
+panjang kode binernya bervariasi antara 0-15 bit. Panjang 0-15 bit inilah yang jadi <em>nilai harfiah</em> untuk <em>Huffman Tree HC</em>.
+Dengan menggunakan panjang kode biner ini sudah cukup untuk merekonstruksi <em>Huffman Tree</em>.</p>
 
-<p>Huffman Tree HC juga cuma disimpan panjang kode binernya, jadi hanya mengkonsumsi 3 bit(menghasilkan panjang 0-7), 
-tidak perlu 4 bit untuk menghasilkan Kode Huffman 0-15.</p>
+<p><em>Huffman Tree HC</em> juga cuma disimpan panjang kode binernya, jadi hanya mengkonsumsi 3 bit(menghasilkan panjang 0-7 bit), 
+tidak perlu 5 bit untuk menghasilkan Kode Huffman 0-18.</p>
 
 <p>Hanya saja celakanya, panjang kode biner ini tidak disimpan secara berurutan, melainkan disimpan dengan urutan sebagai berikut:
 16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15. 
 Kalau panjangnya 0 bit, berarti nilai tersebut tidak digunakan.</p>
 
-<p>Setelah panjangnya dibaca, Huffman Tree bisa direkonstruksi menggunakan cara di artikel <a href="algoritma-huffman.html">Algoritma Huffman</a></p>
+<p>Setelah panjang tiap kode sudah dibaca, <em>Huffman Tree</em> bisa direkonstruksi menggunakan cara di artikel <a href="algoritma-huffman.html">Algoritma Huffman</a></p>
 
 <p>Untuk penjelasan mengenai pasangan λ dan δ silakan baca artikel <a href="algoritma-lz77.html">Algoritma LZ77</a></p>
 
@@ -673,24 +887,27 @@ Ini merupakan blok yang paling rumit dan membingungkan, sekaligus paling umum di
   <li>5 bit HDIST</li>
   <li>4 BIT HCLEN</li>
   <li>
-    <p>Huffman Tree HC yang terdiri dari HCLEN dikali 3 bit. Ingat Huffman Tree HC disusun berdasarkan urutan
+    <p><em>Huffman Tree HC</em> yang terdiri dari HCLEN dikali 3 bit. Ingat <em>Huffman Tree HC</em> disusun berdasarkan urutan
 16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15.</p>
   </li>
-  <li>Huffman Tree Alpha sebanyak HLIT yang sudah dipadatkan.</li>
-  <li>Huffman Tree Delta sebanyak HDIST yang sudah dipadatkan.</li>
-  <li>Body yang sudah dipadatkan.</li>
+  <li>
+<em>Huffman Tree Alpha</em> sebanyak HLIT yang sudah dipadatkan.</li>
+  <li>
+<em>Huffman Tree Delta</em> sebanyak HDIST yang sudah dipadatkan.</li>
+  <li>
+<em>Body</em> yang sudah dipadatkan.</li>
   <li>Simbol γ atau Kode Huffman 256 sebagai akhir blok.</li>
 </ul>
 
 <p>HLIT seharusnya berisi nilai antara 0-285. Tetapi itu membutuhkan 9 bit. 
 Maka untuk menghemat tempat digunakan hanya 5 bit sehingga nilai HLIT yang disimpan dikurangi 257 terlebih dahulu baru disimpan.
 HLIT yang dikurangi 257 akan bernilai 0-31 dan cukup menggunakan 5 bit. 
-Jadi spesifikasi <em>Deflate</em> memaksa kita menggunakan Kode Huffman minimal sebanyak 257, maksimal 288.</p>
+Jadi spesifikasi <em>deflate</em> memaksa kita menggunakan Kode Huffman minimal sebanyak 258(0-257), maksimal 288(0-287).</p>
 
 <p>HDIST juga demikian, harusnya bernilai 1-32 tapi dikurangi 1 baru disimpan sehingga muat dalam 5 bit.</p>
 
 <p>HCLEN harusnya berisi 0-18, tapi untuk menghemat 1 bit, digunakan 4 bit saja setelah HCLEN dikurangi 4.
-Jadi spesifikasi <em>Deflate</em> memaksa kita menggunakan minimal 4 dan maksimal 19 Kode Huffman untuk Tree HC.</p>
+Jadi spesifikasi <em>deflate</em> memaksa kita menggunakan minimal 5(0-4) dan maksimal 19(0-18) Kode Huffman untuk Tree HC.</p>
 
 <div class="language-python highlighter-coderay">
 <div class="CodeRay">
@@ -701,23 +918,23 @@ Jadi spesifikasi <em>Deflate</em> memaksa kita menggunakan minimal 4 dan maksima
 <span class="line-numbers"> <a href="#n5" name="n5">5</a></span>  HCLEN = data.bacaBit(<span style="color:#00D">4</span>) + <span style="color:#00D">4</span>
 <span class="line-numbers"> <a href="#n6" name="n6">6</a></span>  
 <span class="line-numbers"> <a href="#n7" name="n7">7</a></span>  <span style="color:#080;font-weight:bold">for</span> i <span style="color:#080;font-weight:bold">in</span> <span style="color:#60E">0.</span>.HCLEN:
-<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>    TreeHC[HC_ORDER[i]] = data.bacaBit(<span style="color:#00D">3</span>)
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>    TreeHC_len[HC_ORDER[i]] = data.bacaBit(<span style="color:#00D">3</span>)
 <span class="line-numbers"> <a href="#n9" name="n9">9</a></span>  
 <span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  <span style="color:#777">#kita abaikan rekonstruksi TreeHC untuk penyederhanaan</span>
 <span class="line-numbers"><a href="#n11" name="n11">11</a></span>  
 <span class="line-numbers"><a href="#n12" name="n12">12</a></span>  <span style="color:#080;font-weight:bold">for</span> i <span style="color:#080;font-weight:bold">in</span> <span style="color:#60E">0.</span>.HLIT:
-<span class="line-numbers"><a href="#n13" name="n13">13</a></span>    TreeAlpha[i] = data.bacaKodeHuffman(PakaiTreeHC)
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>    TreeAlpha_len[i] = data.bacaKodeHuffman(PakaiTreeHC)
 <span class="line-numbers"><a href="#n14" name="n14">14</a></span>    
 <span class="line-numbers"><a href="#n15" name="n15">15</a></span>  <span style="color:#080;font-weight:bold">for</span> i <span style="color:#080;font-weight:bold">in</span> <span style="color:#60E">0.</span>.HDIST:
-<span class="line-numbers"><a href="#n16" name="n16">16</a></span>    TreeDelta[i] = data.bacaKodeHuffman(PakaiTreeHC)
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>    TreeDelta_len[i] = data.bacaKodeHuffman(PakaiTreeHC)
 <span class="line-numbers"><a href="#n17" name="n17">17</a></span>    
 <span class="line-numbers"><a href="#n18" name="n18">18</a></span>  <span style="color:#777">#kita abaikan rekonstruksi TreeAlpha dan TreeDelta</span>
 </pre></div>
 </div>
 </div>
 
-<p>Setelah itu baca body pakai TreeAlpha dan TreeDelta sampai ketemu kode 256.
-Caranya sama seperti membaca body yang dipadatkan dengan Fixed Huffman Tree, 
+<p>Setelah itu baca body pakai TreeAlpha dan TreeDelta sampai ketemu kode 256(γ).
+Caranya sama seperti membaca body yang dipadatkan dengan <em>Fixed Huffman Tree</em>, 
 hanya saja TreeAlpha dan TreeDelta direkonstruksi dari blok data, bukan dari tabel yang Fixed.</p>
 
     </div>
