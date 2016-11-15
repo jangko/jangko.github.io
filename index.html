@@ -205,7 +205,7 @@ Setiap blok hanya memiliki satu simbol γ.</p>
 
 <p>Simbol α mewakili Kode Huffman 0-255. Kode Huffman 0-255 juga mewakili nilai harfiah dari byte-byte bernilai 0-255.
 Bedanya Kode Huffman 0-255 dengan byte harfiah yang bernilai 0-255 adalah: satu byte selalu delapan bit panjangnya,
-sedangakan satu Kode Huffman bisa bervariasi panjang bit-nya, tergantung cara kita membuat/memakai <em>Huffman Tree</em>-nya.</p>
+sedangkan satu Kode Huffman bisa bervariasi panjang bit-nya, tergantung cara kita membuat/memakai <em>Huffman Tree</em>-nya.</p>
 
 <p>Simbol γ yang merupakan penanda akhir blok mewakili Kode Huffman 256.
 Kode Huffman 256 tidak mewakili nilai harfiah manapun, tapi mewakili sebuah action, bahwa pembacaan blok harus diakhiri.</p>
@@ -631,7 +631,7 @@ Untuk blok yang dipadatkan menggunakan <em>Fixed Huffman Tree</em>, <em>Huffman 
 </table>
 
 <p>Untuk <em>Huffman Tree Delta</em>(Fixed) digunakan banyaknya bit yang tetap yaitu 5. 
-Perhatikan bahwa Kode Biner Huffman dan Biner Integer pada tabel ini kebetulan sama,
+Perhatikan bahwa Kode Biner Huffman dan Biner Integer pada tabel ini kebetulan adalah mirror,
 untuk yang <em>Dynamic Huffman Tree</em> tidaklah demikian halnya.</p>
 
 <table>
@@ -653,19 +653,19 @@ untuk yang <em>Dynamic Huffman Tree</em> tidaklah demikian halnya.</p>
     <tr>
       <td style="text-align: center">1</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">00001</td>
+      <td style="text-align: center">10000</td>
       <td style="text-align: center">00001</td>
     </tr>
     <tr>
       <td style="text-align: center">2</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">00010</td>
+      <td style="text-align: center">01000</td>
       <td style="text-align: center">00010</td>
     </tr>
     <tr>
       <td style="text-align: center">3</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">00011</td>
+      <td style="text-align: center">11000</td>
       <td style="text-align: center">00011</td>
     </tr>
     <tr>
@@ -677,31 +677,31 @@ untuk yang <em>Dynamic Huffman Tree</em> tidaklah demikian halnya.</p>
     <tr>
       <td style="text-align: center">5</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">00101</td>
+      <td style="text-align: center">10100</td>
       <td style="text-align: center">00101</td>
     </tr>
     <tr>
       <td style="text-align: center">6</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">00110</td>
+      <td style="text-align: center">01100</td>
       <td style="text-align: center">00110</td>
     </tr>
     <tr>
       <td style="text-align: center">7</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">00111</td>
+      <td style="text-align: center">11100</td>
       <td style="text-align: center">00111</td>
     </tr>
     <tr>
       <td style="text-align: center">8</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">01000</td>
+      <td style="text-align: center">00010</td>
       <td style="text-align: center">01000</td>
     </tr>
     <tr>
       <td style="text-align: center">9</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">01001</td>
+      <td style="text-align: center">10010</td>
       <td style="text-align: center">01001</td>
     </tr>
     <tr>
@@ -713,19 +713,19 @@ untuk yang <em>Dynamic Huffman Tree</em> tidaklah demikian halnya.</p>
     <tr>
       <td style="text-align: center">11</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">01011</td>
+      <td style="text-align: center">11010</td>
       <td style="text-align: center">01011</td>
     </tr>
     <tr>
       <td style="text-align: center">12</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">01100</td>
+      <td style="text-align: center">00110</td>
       <td style="text-align: center">01100</td>
     </tr>
     <tr>
       <td style="text-align: center">13</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">01101</td>
+      <td style="text-align: center">10110</td>
       <td style="text-align: center">01101</td>
     </tr>
     <tr>
@@ -737,13 +737,13 @@ untuk yang <em>Dynamic Huffman Tree</em> tidaklah demikian halnya.</p>
     <tr>
       <td style="text-align: center">15</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">01111</td>
+      <td style="text-align: center">11110</td>
       <td style="text-align: center">01111</td>
     </tr>
     <tr>
       <td style="text-align: center">16</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">10000</td>
+      <td style="text-align: center">00001</td>
       <td style="text-align: center">10000</td>
     </tr>
     <tr>
@@ -755,19 +755,19 @@ untuk yang <em>Dynamic Huffman Tree</em> tidaklah demikian halnya.</p>
     <tr>
       <td style="text-align: center">18</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">10010</td>
+      <td style="text-align: center">01001</td>
       <td style="text-align: center">10010</td>
     </tr>
     <tr>
       <td style="text-align: center">19</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">10011</td>
+      <td style="text-align: center">11001</td>
       <td style="text-align: center">10011</td>
     </tr>
     <tr>
       <td style="text-align: center">20</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">10100</td>
+      <td style="text-align: center">00101</td>
       <td style="text-align: center">10100</td>
     </tr>
     <tr>
@@ -779,31 +779,31 @@ untuk yang <em>Dynamic Huffman Tree</em> tidaklah demikian halnya.</p>
     <tr>
       <td style="text-align: center">22</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">10110</td>
+      <td style="text-align: center">01101</td>
       <td style="text-align: center">10110</td>
     </tr>
     <tr>
       <td style="text-align: center">23</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">10111</td>
+      <td style="text-align: center">11101</td>
       <td style="text-align: center">10111</td>
     </tr>
     <tr>
       <td style="text-align: center">24</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">11000</td>
+      <td style="text-align: center">00011</td>
       <td style="text-align: center">11000</td>
     </tr>
     <tr>
       <td style="text-align: center">25</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">11001</td>
+      <td style="text-align: center">10011</td>
       <td style="text-align: center">11001</td>
     </tr>
     <tr>
       <td style="text-align: center">26</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">11010</td>
+      <td style="text-align: center">01011</td>
       <td style="text-align: center">11010</td>
     </tr>
     <tr>
@@ -815,19 +815,19 @@ untuk yang <em>Dynamic Huffman Tree</em> tidaklah demikian halnya.</p>
     <tr>
       <td style="text-align: center">28</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">11100</td>
+      <td style="text-align: center">00111</td>
       <td style="text-align: center">11100</td>
     </tr>
     <tr>
       <td style="text-align: center">29</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">11101</td>
+      <td style="text-align: center">10111</td>
       <td style="text-align: center">11101</td>
     </tr>
     <tr>
       <td style="text-align: center">30</td>
       <td style="text-align: center">5</td>
-      <td style="text-align: center">11110</td>
+      <td style="text-align: center">01111</td>
       <td style="text-align: center">11110</td>
     </tr>
     <tr>
@@ -857,7 +857,7 @@ Kali ini Kode Huffman-nya dibagi dalam empat kategori, yaitu:</p>
   <li>18 mewakili perintah ulangi menulis nilai 0(<em>zero</em>) sebanyak 11-138 kali dengan bantuan extra 7 bit.</li>
 </ul>
 
-<p>Bukankah <em>Hufman Tree Alpha</em> dan <em>Delta</em> yang dipadatkan menggunakan kode 0-287 dan 0-31, 
+<p>Bukankah <em>Hufman Tree Alpha</em> dan <em>Delta</em> yang dipadatkan menggunakan kode 0-287 dan 0-31?, 
 kenapa nilai <em>Huffman Tree HC</em> yang dipakai cuma 0-15, 
 ternyata yang disimpan bukan nilai 0-287(butuh 9 bit) atau 0-31(butuh 5 bit), melainkan panjang kodenya dalam biner. 
 Contohnya untuk tabel <em>Huffman Tree Alpha</em>(Fixed) panjang kode binernya adalah 7-9 bit, sedangkan untuk yang <em>Dynamic</em>, 
@@ -917,15 +917,15 @@ Jadi spesifikasi <em>deflate</em> memaksa kita menggunakan minimal 5(0-4) dan ma
 <span class="line-numbers"> <a href="#n4" name="n4">4</a></span>  HDIST = data.bacaBit(<span style="color:#00D">5</span>) + <span style="color:#00D">1</span>
 <span class="line-numbers"> <a href="#n5" name="n5">5</a></span>  HCLEN = data.bacaBit(<span style="color:#00D">4</span>) + <span style="color:#00D">4</span>
 <span class="line-numbers"> <a href="#n6" name="n6">6</a></span>  
-<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>  <span style="color:#080;font-weight:bold">for</span> i <span style="color:#080;font-weight:bold">in</span> <span style="color:#60E">0.</span>.HCLEN:
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>  <span style="color:#080;font-weight:bold">for</span> i <span style="color:#080;font-weight:bold">in</span> <span style="color:#60E">0.</span>.&lt;HCLEN:
 <span class="line-numbers"> <a href="#n8" name="n8">8</a></span>    TreeHC_len[HC_ORDER[i]] = data.bacaBit(<span style="color:#00D">3</span>)
 <span class="line-numbers"> <a href="#n9" name="n9">9</a></span>  
 <span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  <span style="color:#777">#kita abaikan rekonstruksi TreeHC untuk penyederhanaan</span>
 <span class="line-numbers"><a href="#n11" name="n11">11</a></span>  
-<span class="line-numbers"><a href="#n12" name="n12">12</a></span>  <span style="color:#080;font-weight:bold">for</span> i <span style="color:#080;font-weight:bold">in</span> <span style="color:#60E">0.</span>.HLIT:
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>  <span style="color:#080;font-weight:bold">for</span> i <span style="color:#080;font-weight:bold">in</span> <span style="color:#60E">0.</span>.&lt;HLIT:
 <span class="line-numbers"><a href="#n13" name="n13">13</a></span>    TreeAlpha_len[i] = data.bacaKodeHuffman(PakaiTreeHC)
 <span class="line-numbers"><a href="#n14" name="n14">14</a></span>    
-<span class="line-numbers"><a href="#n15" name="n15">15</a></span>  <span style="color:#080;font-weight:bold">for</span> i <span style="color:#080;font-weight:bold">in</span> <span style="color:#60E">0.</span>.HDIST:
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>  <span style="color:#080;font-weight:bold">for</span> i <span style="color:#080;font-weight:bold">in</span> <span style="color:#60E">0.</span>.&lt;HDIST:
 <span class="line-numbers"><a href="#n16" name="n16">16</a></span>    TreeDelta_len[i] = data.bacaKodeHuffman(PakaiTreeHC)
 <span class="line-numbers"><a href="#n17" name="n17">17</a></span>    
 <span class="line-numbers"><a href="#n18" name="n18">18</a></span>  <span style="color:#777">#kita abaikan rekonstruksi TreeAlpha dan TreeDelta</span>
